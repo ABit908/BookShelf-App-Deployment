@@ -1,0 +1,7 @@
+# Ignore terraform sensitive files
+*.tfvars
+*.tfvars.json
+
+# Ignore JSON files containing secrets
+secrets.json
+credentials.json
