@@ -1,0 +1,7 @@
+- name: Install Fluentd logging agent (Google preconfigured)
+  shell: |
+    curl -sSO https://dl.google.com/cloudagents/add-logging-agent-repo.sh
+    bash add-logging-agent-repo.sh
+    apt-get update
+    apt-get install -y google-fluentd
+    service google-fluentd start

@@ -1,0 +1,16 @@
+- name: Clone application repo
+  git:
+    repo: "https://github.com/GoogleCloudPlatform/getting-started-python.git"
+    dest: "{{ project_dir }}"
+    version: steps
+
+- name: Template the config.py file
+  template:
+    src: config.py.j2
+    dest: "{{ project_dir }}/config.py"
+
+- name: Install dependencies
+  pip:
+    requirements: "{{ project_dir }}/requirements.txt"
+    virtualenv: "{{ virtualenv_path }}"
+    virtualenv_python: python3.5

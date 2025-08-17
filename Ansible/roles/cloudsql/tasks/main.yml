@@ -1,0 +1,13 @@
+- name: Download Cloud SQL Proxy
+  get_url:
+    url: https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64
+    dest: /usr/local/bin/cloud_sql_proxy
+    mode: '0755'
+
+- name: Start Cloud SQL Proxy
+  shell: |
+    mkdir -p /cloudsql
+    nohup cloud_sql_proxy -dir=/cloudsql -instances={{ CLOUDSQL_CONNECTION_NAME }} &
+
+  environment:
+    CLOUDSQL_CONNECTION_NAME: "{{ lookup('env', 'CLOUDSQL_CONNECTION_NAME') }}"

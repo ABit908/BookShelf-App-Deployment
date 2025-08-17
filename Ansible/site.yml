@@ -1,0 +1,11 @@
+- hosts: localhost
+  become: yes
+  vars:
+    project_dir: "/home/amanpm108/projects/getting-started-python/7-gce"
+    virtualenv_path: "/home/amanpm108/.pyenv/versions/3.5.10/envs/myenv"
+  roles:
+    - common
+    - fluentd
+    - cloudsql
+    - app
+    - supervisor

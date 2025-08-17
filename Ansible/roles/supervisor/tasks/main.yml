@@ -1,0 +1,23 @@
+- name: Install Supervisor
+  apt:
+    name: supervisor
+    state: present
+
+- name: Add application supervisor config
+  copy:
+    dest: /etc/supervisor/conf.d/bookshelf.conf
+    content: |
+      [program:bookshelf]
+      command={{ virtualenv_path }}/bin/gunicorn -b 0.0.0.0:8080 main:app
+      directory={{ project_dir }}
+      autostart=true
+      autorestart=true
+      stderr_logfile=/var/log/bookshelf.err.log
+      stdout_logfile=/var/log/bookshelf.out.log
+      user=amanpm108
+
+- name: Reload and update Supervisor
+  shell: |
+    supervisorctl reread
+    supervisorctl update
+    supervisorctl start bookshelf || true
